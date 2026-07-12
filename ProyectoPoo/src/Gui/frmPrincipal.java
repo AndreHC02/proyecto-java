@@ -4,18 +4,38 @@
  */
 package Gui;
 
+
 /**
  *
  * @author ASUS
  */
 public class frmPrincipal extends javax.swing.JFrame {
-
+    private String rolUsuario;
     /**
      * Creates new form frmPrincipal
+     * @param rol
      */
-    public frmPrincipal() {
+    public frmPrincipal(String rol) {
         initComponents();
+        this.rolUsuario = rol;
+        
+        aplicarPermisosPorRol();
+        // ¡Esta línea centra la ventana en la pantalla!
+        this.setLocationRelativeTo(null);
+        
     }
+    private void aplicarPermisosPorRol() {
+    if (rolUsuario.equals("Asesor de Viaje")) {
+        mnAdministracion.setVisible(false);
+        mnOperaciones.setVisible(false);
+    } 
+    else if (rolUsuario.equals("Operador")) {
+        mnAdministracion.setVisible(false);
+        mnVentas.setVisible(false);
+        menuReportes.setVisible(false);
+    }
+ }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,6 +114,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuReportes.setText("Reportes");
 
         mnitemReservasPaquete.setText("Reservas por Paquete");
+        mnitemReservasPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemReservasPaqueteActionPerformed(evt);
+            }
+        });
         menuReportes.add(mnitemReservasPaquete);
 
         mnitemDestinosSolicitados.setText("Destinos más solicitados");
@@ -107,12 +132,25 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         MenubarPrincipal.add(menuReportes);
 
+        mnSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sistema-de-escritorio.png"))); // NOI18N
         mnSistema.setText("Sistema");
 
+        mnitmCerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"))); // NOI18N
         mnitmCerrarsesion.setText("Cerrar sesión");
+        mnitmCerrarsesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitmCerrarsesionActionPerformed(evt);
+            }
+        });
         mnSistema.add(mnitmCerrarsesion);
 
+        mnitmSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SalirSistema.png"))); // NOI18N
         mnitmSalir.setText("Salir del sistema");
+        mnitmSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitmSalirActionPerformed(evt);
+            }
+        });
         mnSistema.add(mnitmSalir);
 
         MenubarPrincipal.add(mnSistema);
@@ -127,11 +165,111 @@ public class frmPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 295, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mnitmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitmSalirActionPerformed
+                                          
+    // 1. Creamos una ventana emergente temporal (JDialog) vinculada al formulario principal
+    final javax.swing.JDialog ventanaAlerta = new javax.swing.JDialog(this, "Saliendo", true);
+    
+    // 2. Le quitamos los bordes y botones de cerrar (X) para que se vea minimalista y limpio
+    ventanaAlerta.setUndecorated(true);
+    
+    // 3. Creamos una etiqueta de texto con un diseño elegante
+    javax.swing.JLabel txtMensaje = new javax.swing.JLabel(
+        "<html><center><font size='5' color='#0f2a4a'><b>Legacy Travel</b></font><br>"
+        + "<font size='4' color='#555555'>Cerrando el sistema de forma segura...<br>Espere un momento.</font></center></html>", 
+        javax.swing.JLabel.CENTER
+    );
+    
+    // 4. Configuramos el contenedor de la alerta (Fondo blanco y margen)
+    txtMensaje.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 30, 20, 30));
+    ventanaAlerta.getContentPane().setBackground(java.awt.Color.WHITE);
+    ventanaAlerta.getContentPane().add(txtMensaje);
+    
+    // Le ponemos un borde exterior gris muy fino para que resalte
+    ((javax.swing.JComponent)ventanaAlerta.getContentPane()).setBorder(
+        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 1)
+    );
+
+    // 5. Ajustamos el tamaño automáticamente según el texto y lo centramos en la pantalla
+    ventanaAlerta.pack();
+    ventanaAlerta.setLocationRelativeTo(this);
+
+    // 6. Creamos el temporizador de 3 segundos (3000 ms) para que cierre la alerta y apague el programa
+    javax.swing.Timer temporizador = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            ventanaAlerta.dispose(); // Cierra y destruye el mensaje flotante
+            System.exit(0);         // Cierra por completo toda la aplicación
+        }
+    });
+    temporizador.setRepeats(false);
+    temporizador.start(); // Inicia la cuenta regresiva de los 3 segundos
+
+    // 7. Hacemos visible el mensaje flotante (bloquea la pantalla trasera mientras cuenta el tiempo)
+    ventanaAlerta.setVisible(true);
+    }//GEN-LAST:event_mnitmSalirActionPerformed
+
+    private void mnitmCerrarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitmCerrarsesionActionPerformed
+        // TODO add your handling code here:
+        // 1. Creamos la ventana emergente flotante (JDialog) vinculada al formulario principal
+        final javax.swing.JDialog alertaCierre = new javax.swing.JDialog(this, "Cerrando Sesión", true);
+        
+        // 2. Le quitamos los bordes y la 'X' para que se vea minimalista
+        alertaCierre.setUndecorated(true);
+
+        // 3. Diseñamos el mensaje elegante en HTML
+        javax.swing.JLabel txtMensaje = new javax.swing.JLabel(
+            "<html><center><font size='5' color='#0f2a4a'><b>Legacy Travel</b></font><br>"
+            + "<font size='4' color='#555555'>Cerrando sesión de forma segura...<br>Redireccionando al Login.</font></center></html>", 
+            javax.swing.JLabel.CENTER
+        );
+
+        // 4. Configuramos el contenedor (Fondo blanco, márgenes y borde fino gris)
+        txtMensaje.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 30, 20, 30));
+        alertaCierre.getContentPane().setBackground(java.awt.Color.WHITE);
+        alertaCierre.getContentPane().add(txtMensaje);
+
+        ((javax.swing.JComponent)alertaCierre.getContentPane()).setBorder(
+            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 1)
+        );
+
+        // 5. Ajustamos tamaño y centramos en pantalla
+        alertaCierre.pack();
+        alertaCierre.setLocationRelativeTo(this);
+
+        // Ocultamos la ventana principal de inmediato para un efecto de salida limpio
+        this.setVisible(false);
+
+        // 6. Creamos el temporizador de 3 segundos (3000 ms)
+        javax.swing.Timer temporizador = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                alertaCierre.dispose();      // Destruye el letrero flotante de la pantalla
+                frmPrincipal.this.dispose(); // Libera por completo la memoria de la ventana principal
+                
+                // 7. Abrimos la ventana de Login fresca y centrada
+                frmLogin ventanaLogin = new frmLogin();
+                ventanaLogin.setVisible(true);
+                ventanaLogin.setLocationRelativeTo(null);
+            }
+        });
+        
+        temporizador.setRepeats(false);
+        temporizador.start(); // ¡Inicia la cuenta regresiva!
+
+        // Hacemos visible la alerta (se queda congelada los 3 segundos del contador)
+        alertaCierre.setVisible(true);   
+    }//GEN-LAST:event_mnitmCerrarsesionActionPerformed
+
+    private void mnitemReservasPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemReservasPaqueteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnitemReservasPaqueteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,14 +294,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEmenuAdministracionnull, ex);
-        }
-        //</editor-fold>
+            java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }//</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmPrincipal().setVisible(true);
+                new frmPrincipal("").setVisible(true);
             }
         });
     }
@@ -194,3 +331,4 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnitmSalir;
     // End of variables declaration//GEN-END:variables
 }
+
