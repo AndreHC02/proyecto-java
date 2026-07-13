@@ -156,4 +156,22 @@ public class GestionPaquetesTuristicos {
         }
         return existentes;
     }
+    // Ejemplo de cómo preparar tus datos cargados para la sustentación:
+    public static PaquetesTuristicos[] cargarDatosDePrueba() {
+    PaquetesTuristicos[] listaPaquetes = new PaquetesTuristicos[50];
+    
+    // Paquete 1: Cusco (5 días)
+    PaquetesTuristicos p1 = new PaquetesTuristicos("CUS01", "Cusco Mágico e Imperial", 5, 4, "Cultural", 1200.0, "15/08/2026", "20/08/2026", 20, "Activo");
+    p1.registrarActividadDia(1, "Recepción en aeropuerto, traslado al hotel y mate de coca de bienvenida.");
+    p1.registrarActividadDia(2, "City Tour guiado por Sacsayhuamán, Qorikancha y Tambomachay.");
+    // Dejamos los días 3, 4 y 5 vacíos para que TÚ los llenes en vivo frente al profesor
+    listaPaquetes[0] = p1;
+
+    // Paquete 2: Máncora (3 días)
+    PaquetesTuristicos p2 = new PaquetesTuristicos("MAN02", "Relax en Playas de Máncora", 3, 2, "Relax", 850.0, "10/09/2026", "13/09/2026", 15, "Activo");
+    p2.registrarActividadDia(1, "Llegada al resort, tarde de playa y cóctel de bienvenida en la piscina.");
+    listaPaquetes[1] = p2;
+
+    return listaPaquetes;
+}
 }

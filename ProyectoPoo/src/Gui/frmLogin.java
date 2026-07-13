@@ -18,8 +18,9 @@ public class frmLogin extends javax.swing.JFrame {
      */
     public frmLogin() {
         initComponents();
+        this.getContentPane().setBackground(new java.awt.Color(240, 245, 250));
         
-        // ¡Esta línea centra la ventana en la pantalla!
+       
         this.setLocationRelativeTo(null);
         
     }
@@ -44,7 +45,7 @@ public class frmLogin extends javax.swing.JFrame {
         lblBienvenidos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Legacy Travel - 2026 - Iniciar sesión");
+        setTitle("LEGACY TRAVEL - 2026 - INICIAR SESIÓN");
 
         lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Legacy Travel.png"))); // NOI18N
         lblImagen.setMaximumSize(new java.awt.Dimension(80, 60));
@@ -86,26 +87,28 @@ public class frmLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnIngresar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAyuda))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
+                                .addGap(57, 57, 57)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                                    .addComponent(txtUsuario))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblBienvenidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblBienvenidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAyuda)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -133,30 +136,68 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-                                        
-    
     String userTxt = txtUsuario.getText().trim();
     String passTxt = new String(txtContrasenia.getPassword());
     
     GestionUsuario gestion = new GestionUsuario();
-    
     Usuario usuarioLogueado = gestion.validarLogin(userTxt, passTxt);
     
     if (usuarioLogueado != null) {
         
-        // REEMPLAZA LA LÍNEA VIEJA POR ESTA:
-        javax.swing.JOptionPane.showMessageDialog(
-            this, 
-            "¡Acceso concedido!\nBienvenido al sistema, " + usuarioLogueado.getUsuario() + ".", 
-             "Legacy Travel - Sistema", 
-            javax.swing.JOptionPane.INFORMATION_MESSAGE
+        final javax.swing.JDialog alertaBienvenida = new javax.swing.JDialog(this, "Bienvenido", true);
+        alertaBienvenida.setUndecorated(true);
+
+        // 2. Diseñamos el letrero estético en HTML usando los datos del usuario logueado
+        javax.swing.JLabel txtMensaje = new javax.swing.JLabel(
+            "<html><center><font size='5' color='#0f2a4a'><b>Legacy Travel</b></font><br>"
+            + "<font size='4' color='#555555'>¡Acceso concedido!<br>Bienvenido al sistema, <b>" 
+            + usuarioLogueado.getUsuario() + "</b>.<br>Cargando interfaz...</font></center></html>", 
+            javax.swing.JLabel.CENTER
         );
+
         
+        txtMensaje.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 30, 20, 30));
+        alertaBienvenida.getContentPane().setBackground(java.awt.Color.WHITE);
+        alertaBienvenida.getContentPane().add(txtMensaje);
+
+        ((javax.swing.JComponent)alertaBienvenida.getContentPane()).setBorder(
+            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 1)
+        );
+
         
-        this.dispose();
+        alertaBienvenida.pack();
+        alertaBienvenida.setLocationRelativeTo(this);
+
+        
+        this.setVisible(false);
+
+        
+        javax.swing.Timer temporizador = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                alertaBienvenida.dispose();
+                frmLogin.this.dispose();    
+
+               
+                String rolUsuario = usuarioLogueado.getRol(); 
+                frmPrincipal ventanaPrincipal = new frmPrincipal(rolUsuario);
+                ventanaPrincipal.setVisible(true);
+            }
+        });
+        temporizador.setRepeats(false);
+        temporizador.start(); 
+
+        
+        alertaBienvenida.setVisible(true);
+        
     } else {
         
-        javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de Acceso", javax.swing.JOptionPane.ERROR_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Usuario o contraseña incorrectos", 
+            "Error de Acceso", 
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
     }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

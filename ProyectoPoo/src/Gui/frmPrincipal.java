@@ -4,23 +4,42 @@
  */
 package Gui;
 
+import Clases.PaquetesTuristicos;
+import Gestion.GestionPaquetesTuristicos;
+import Utilitario.Fondo;
+import proyectofinalpoo.Voucher;
+
 
 /**
  *
  * @author ASUS
  */
 public class frmPrincipal extends javax.swing.JFrame {
+    
     private String rolUsuario;
+    
+    
+    private PaquetesTuristicos[] misPaquetes;
+    
+    private Voucher[] misVouchers = new Voucher[100];
+    private int contadorVouchers = 0; 
     /**
      * Creates new form frmPrincipal
      * @param rol
      */
     public frmPrincipal(String rol) {
-        initComponents();
-        this.rolUsuario = rol;
         
+        Fondo fondo = new Fondo("/Imagenes/FondoPrincipal.jpg");
+        this.setContentPane(fondo);
+        
+        initComponents();
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        this.rolUsuario = rol;
+        this.getContentPane().setBackground(new java.awt.Color(240, 245, 250));
+        
+        this.misPaquetes = GestionPaquetesTuristicos.cargarDatosDePrueba();
         aplicarPermisosPorRol();
-        // ¡Esta línea centra la ventana en la pantalla!
+        
         this.setLocationRelativeTo(null);
         
     }
@@ -81,6 +100,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem9.setText("jMenuItem9");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LEGACY TRAVEL - MENÚ PRINCIPAL");
 
         mnAdministracion.setText("Administración");
 
@@ -101,18 +121,33 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnVentas.setText("Ventas");
         MenubarPrincipal.add(mnVentas);
 
+        mnOperaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sistemas.png"))); // NOI18N
         mnOperaciones.setText("Operaciones");
 
+        mnitemItinerario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/itinerario.png"))); // NOI18N
         mnitemItinerario.setText("Itinerario");
+        mnitemItinerario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemItinerarioActionPerformed(evt);
+            }
+        });
         mnOperaciones.add(mnitemItinerario);
 
+        mnitemCupos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cupon-de-descuento.png"))); // NOI18N
         mnitemCupos.setText("Control de Cupos");
+        mnitemCupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemCuposActionPerformed(evt);
+            }
+        });
         mnOperaciones.add(mnitemCupos);
 
         MenubarPrincipal.add(mnOperaciones);
 
+        menuReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/inmigracion.png"))); // NOI18N
         menuReportes.setText("Reportes");
 
+        mnitemReservasPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pquete.png"))); // NOI18N
         mnitemReservasPaquete.setText("Reservas por Paquete");
         mnitemReservasPaquete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,13 +156,31 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         menuReportes.add(mnitemReservasPaquete);
 
+        mnitemDestinosSolicitados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/destino.png"))); // NOI18N
         mnitemDestinosSolicitados.setText("Destinos más solicitados");
+        mnitemDestinosSolicitados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemDestinosSolicitadosActionPerformed(evt);
+            }
+        });
         menuReportes.add(mnitemDestinosSolicitados);
 
+        mnitemIngresosPorAsesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ingresos.png"))); // NOI18N
         mnitemIngresosPorAsesor.setText("Ingresos por Asesor");
+        mnitemIngresosPorAsesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemIngresosPorAsesorActionPerformed(evt);
+            }
+        });
         menuReportes.add(mnitemIngresosPorAsesor);
 
+        mnitemClienteconDeuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Deuda.png"))); // NOI18N
         mnitemClienteconDeuda.setText("Cliente con Deuda");
+        mnitemClienteconDeuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemClienteconDeudaActionPerformed(evt);
+            }
+        });
         menuReportes.add(mnitemClienteconDeuda);
 
         MenubarPrincipal.add(menuReportes);
@@ -173,45 +226,45 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnitmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitmSalirActionPerformed
                                           
-    // 1. Creamos una ventana emergente temporal (JDialog) vinculada al formulario principal
+   
     final javax.swing.JDialog ventanaAlerta = new javax.swing.JDialog(this, "Saliendo", true);
     
-    // 2. Le quitamos los bordes y botones de cerrar (X) para que se vea minimalista y limpio
+    
     ventanaAlerta.setUndecorated(true);
     
-    // 3. Creamos una etiqueta de texto con un diseño elegante
+    
     javax.swing.JLabel txtMensaje = new javax.swing.JLabel(
         "<html><center><font size='5' color='#0f2a4a'><b>Legacy Travel</b></font><br>"
         + "<font size='4' color='#555555'>Cerrando el sistema de forma segura...<br>Espere un momento.</font></center></html>", 
         javax.swing.JLabel.CENTER
     );
     
-    // 4. Configuramos el contenedor de la alerta (Fondo blanco y margen)
+    
     txtMensaje.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 30, 20, 30));
     ventanaAlerta.getContentPane().setBackground(java.awt.Color.WHITE);
     ventanaAlerta.getContentPane().add(txtMensaje);
     
-    // Le ponemos un borde exterior gris muy fino para que resalte
+    
     ((javax.swing.JComponent)ventanaAlerta.getContentPane()).setBorder(
         javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 1)
     );
 
-    // 5. Ajustamos el tamaño automáticamente según el texto y lo centramos en la pantalla
+    
     ventanaAlerta.pack();
     ventanaAlerta.setLocationRelativeTo(this);
 
-    // 6. Creamos el temporizador de 3 segundos (3000 ms) para que cierre la alerta y apague el programa
+    
     javax.swing.Timer temporizador = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-            ventanaAlerta.dispose(); // Cierra y destruye el mensaje flotante
-            System.exit(0);         // Cierra por completo toda la aplicación
+            ventanaAlerta.dispose(); 
+            System.exit(0);         
         }
     });
     temporizador.setRepeats(false);
-    temporizador.start(); // Inicia la cuenta regresiva de los 3 segundos
+    temporizador.start(); 
 
-    // 7. Hacemos visible el mensaje flotante (bloquea la pantalla trasera mientras cuenta el tiempo)
+   
     ventanaAlerta.setVisible(true);
     }//GEN-LAST:event_mnitmSalirActionPerformed
 
@@ -239,21 +292,21 @@ public class frmPrincipal extends javax.swing.JFrame {
             javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 1)
         );
 
-        // 5. Ajustamos tamaño y centramos en pantalla
+        
         alertaCierre.pack();
         alertaCierre.setLocationRelativeTo(this);
 
-        // Ocultamos la ventana principal de inmediato para un efecto de salida limpio
+        
         this.setVisible(false);
 
-        // 6. Creamos el temporizador de 3 segundos (3000 ms)
+        
         javax.swing.Timer temporizador = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                alertaCierre.dispose();      // Destruye el letrero flotante de la pantalla
-                frmPrincipal.this.dispose(); // Libera por completo la memoria de la ventana principal
+                alertaCierre.dispose();      
+                frmPrincipal.this.dispose(); 
                 
-                // 7. Abrimos la ventana de Login fresca y centrada
+                
                 frmLogin ventanaLogin = new frmLogin();
                 ventanaLogin.setVisible(true);
                 ventanaLogin.setLocationRelativeTo(null);
@@ -261,15 +314,59 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         
         temporizador.setRepeats(false);
-        temporizador.start(); // ¡Inicia la cuenta regresiva!
+        temporizador.start(); 
 
-        // Hacemos visible la alerta (se queda congelada los 3 segundos del contador)
+        
         alertaCierre.setVisible(true);   
     }//GEN-LAST:event_mnitmCerrarsesionActionPerformed
 
     private void mnitemReservasPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemReservasPaqueteActionPerformed
         // TODO add your handling code here:
+        
+        frmReservaPorPaquetes ventanaReporte = new frmReservaPorPaquetes(this.misPaquetes, this.misVouchers);
+        ventanaReporte.setVisible(true);
     }//GEN-LAST:event_mnitemReservasPaqueteActionPerformed
+
+    private void mnitemItinerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemItinerarioActionPerformed
+        // TODO add your handling code here:
+       
+        if (this.misPaquetes == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "El sistema de paquetes no está inicializado.", 
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+        frmItinerario ventanaItinerario = new frmItinerario(this.misPaquetes);
+        
+        
+        ventanaItinerario.setVisible(true);
+    }//GEN-LAST:event_mnitemItinerarioActionPerformed
+
+    private void mnitemCuposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemCuposActionPerformed
+        // TODO add your handling code here:
+        
+        frmCupos ventanaCupos = new frmCupos(this.misPaquetes);
+        ventanaCupos.setVisible(true);
+    }//GEN-LAST:event_mnitemCuposActionPerformed
+
+    private void mnitemDestinosSolicitadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemDestinosSolicitadosActionPerformed
+        // TODO add your handling code here:
+        frmDestinosMasSolicitados ventanaDestinos = new frmDestinosMasSolicitados(this.misPaquetes, this.misVouchers);
+        ventanaDestinos.setVisible(true);
+    }//GEN-LAST:event_mnitemDestinosSolicitadosActionPerformed
+
+    private void mnitemIngresosPorAsesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemIngresosPorAsesorActionPerformed
+        frmReporteIngresosAsesor ventanaAsesores = new frmReporteIngresosAsesor(this.misPaquetes, this.misVouchers);
+        ventanaAsesores.setVisible(true);
+    }//GEN-LAST:event_mnitemIngresosPorAsesorActionPerformed
+
+    private void mnitemClienteconDeudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemClienteconDeudaActionPerformed
+        // TODO add your handling code here:
+        frmReporteDeudas ventanaDeudas = new frmReporteDeudas(this.misPaquetes, this.misVouchers);
+        ventanaDeudas.setVisible(true);
+    }//GEN-LAST:event_mnitemClienteconDeudaActionPerformed
 
     /**
      * @param args the command line arguments
