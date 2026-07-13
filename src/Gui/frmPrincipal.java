@@ -278,6 +278,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnitemGestionarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemGestionarEmpleadosActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_mnitemGestionarEmpleadosActionPerformed
 
     /**

@@ -35,23 +35,25 @@ public class GestionEmpleado {
 
         return null;
     }
+    public boolean eliminarEmpleado(int idEmpleado) {
 
-  
-    public void eliminarEmpleado(int idEmpleado) {
+    for (int i = 0; i < cantidad; i++) {
 
-        for (int i = 0; i < cantidad; i++) {
+        if (empleados[i].getIdEmpleado() == idEmpleado) {
 
-            if (empleados[i].getIdEmpleado() == idEmpleado) {
-
-                for (int j = i; j < cantidad - 1; j++) {
-                    empleados[j] = empleados[j + 1];
-                }
-
-                cantidad--;
-                break;
+            for (int j = i; j < cantidad - 1; j++) {
+                empleados[j] = empleados[j + 1];
             }
+
+            cantidad--;
+            return true;
         }
     }
+
+    return false;
+}
+
+  
     public void mostrarEmpleados() {
 
         for (int i = 0; i < cantidad; i++) {
@@ -61,6 +63,9 @@ public class GestionEmpleado {
 
         }
     }
+    public Empleado[] getEmpleados() {
+    return empleados;
+}
     
 
     public int obtenerCantidad() {
@@ -70,6 +75,20 @@ public class GestionEmpleado {
     private void imprimir(String cadena) {
         System.out.println(cadena);
     }
+    public boolean actualizar(Empleado empleado) {
+
+    for (int i = 0; i < cantidad; i++) {
+
+        if (empleados[i].getIdEmpleado() == empleado.getIdEmpleado()) {
+
+            empleados[i] = empleado;
+            return true;
+        }
+
+    }
+
+    return false;
+}
 }
     
 
