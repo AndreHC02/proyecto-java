@@ -27,16 +27,33 @@ public class frmDestinos extends javax.swing.JFrame {
         modelo.addColumn("País");
         modelo.addColumn("Ciudad");
         
-        // Asociamos el modelo a tu tabla del diseño
+        
         jTable1.setModel(modelo);
         
-        // Esto evita que se cierre todo el programa si cierras solo esta ventana
+        
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         
         this.gestionDestino = gestionDestino;
+        cargarDestinosPrueba();
         listarDestinos();
     }
+    private void cargarDestinosPrueba() {
+        
+        if (gestionDestino.getContador() == 0) {
+            DestinosTuristicos d1 = new DestinosTuristicos("D001", "Machu Picchu", "Perú", "Cusco", 
+                    "Maravilla del mundo antiguo", "Templado-Subtropical", "Español/Quechua", "machupicchu.jpg");
+                    
+            DestinosTuristicos d2 = new DestinosTuristicos("D002", "Torre Eiffel", "Francia", "París", 
+                    "Monumento icónico de Europa", "Templado", "Francés", "eiffel.jpg");
+                    
+            DestinosTuristicos d3 = new DestinosTuristicos("D003", "Estatua de la Libertad", "EEUU", "Nueva York", 
+                    "Monumento representativo e histórico", "Continental", "Inglés", "libertad.jpg");
 
+            gestionDestino.registrarDestino(d1);
+            gestionDestino.registrarDestino(d2);
+            gestionDestino.registrarDestino(d3);
+        }
+    }
     void listarDestinos() {
         modelo.setNumRows(0);
         // Usamos getContador() y getListaDestinos() que están en tu clase Gestión

@@ -5,6 +5,7 @@
 package Gui;
 
 import Clases.PaquetesTuristicos;
+import Gestion.GestionDestinoTuristico;
 import Gestion.GestionPaquetesTuristicos;
 import Utilitario.Fondo;
 import proyectofinalpoo.Voucher;
@@ -74,8 +75,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnAdministracion = new javax.swing.JMenu();
         mnitemGestionarEmpleados = new javax.swing.JMenuItem();
         mnitemGestionarDestinos = new javax.swing.JMenuItem();
-        mnitemGestionarPaquetes = new javax.swing.JMenuItem();
-        mnitemPromocionesDescuentos = new javax.swing.JMenuItem();
         mnVentas = new javax.swing.JMenu();
         mnOperaciones = new javax.swing.JMenu();
         mnitemItinerario = new javax.swing.JMenuItem();
@@ -102,23 +101,36 @@ public class frmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LEGACY TRAVEL - MENÚ PRINCIPAL");
 
+        mnAdministracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gerente.png"))); // NOI18N
         mnAdministracion.setText("Administración");
 
+        mnitemGestionarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empleado-del-mes.png"))); // NOI18N
         mnitemGestionarEmpleados.setText("Gestionar Empleados");
+        mnitemGestionarEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemGestionarEmpleadosActionPerformed(evt);
+            }
+        });
         mnAdministracion.add(mnitemGestionarEmpleados);
 
+        mnitemGestionarDestinos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mapa.png"))); // NOI18N
         mnitemGestionarDestinos.setText("Gestionar Destinos");
+        mnitemGestionarDestinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitemGestionarDestinosActionPerformed(evt);
+            }
+        });
         mnAdministracion.add(mnitemGestionarDestinos);
-
-        mnitemGestionarPaquetes.setText("Gestionar Paquetes Turísticos");
-        mnAdministracion.add(mnitemGestionarPaquetes);
-
-        mnitemPromocionesDescuentos.setText("Promociones y Descuentos ");
-        mnAdministracion.add(mnitemPromocionesDescuentos);
 
         MenubarPrincipal.add(mnAdministracion);
 
+        mnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventas.png"))); // NOI18N
         mnVentas.setText("Ventas");
+        mnVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnVentasMouseClicked(evt);
+            }
+        });
         MenubarPrincipal.add(mnVentas);
 
         mnOperaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sistemas.png"))); // NOI18N
@@ -368,6 +380,31 @@ public class frmPrincipal extends javax.swing.JFrame {
         ventanaDeudas.setVisible(true);
     }//GEN-LAST:event_mnitemClienteconDeudaActionPerformed
 
+    private void mnVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnVentasMouseClicked
+        // TODO add your handling code here:
+    VentanaVentas winVentas = new VentanaVentas(this.misPaquetes, this.misVouchers);
+    winVentas.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    winVentas.setLocationRelativeTo(null);
+    winVentas.setVisible(true);
+    
+    }//GEN-LAST:event_mnVentasMouseClicked
+
+    private void mnitemGestionarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemGestionarEmpleadosActionPerformed
+        // TODO add your handling code here:
+        frmGestionEmpleado ventanaEmp = new frmGestionEmpleado(); 
+    ventanaEmp.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    ventanaEmp.setLocationRelativeTo(null);
+    ventanaEmp.setVisible(true);
+    }//GEN-LAST:event_mnitemGestionarEmpleadosActionPerformed
+
+    private void mnitemGestionarDestinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitemGestionarDestinosActionPerformed
+        // TODO add your handling code here:
+    Gui.frmDestinos ventanaDest = new Gui.frmDestinos(new GestionDestinoTuristico());
+    ventanaDest.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    ventanaDest.setLocationRelativeTo(null);
+    ventanaDest.setVisible(true);
+    }//GEN-LAST:event_mnitemGestionarDestinosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -401,6 +438,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MenubarPrincipal;
@@ -419,10 +457,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnitemDestinosSolicitados;
     private javax.swing.JMenuItem mnitemGestionarDestinos;
     private javax.swing.JMenuItem mnitemGestionarEmpleados;
-    private javax.swing.JMenuItem mnitemGestionarPaquetes;
     private javax.swing.JMenuItem mnitemIngresosPorAsesor;
     private javax.swing.JMenuItem mnitemItinerario;
-    private javax.swing.JMenuItem mnitemPromocionesDescuentos;
     private javax.swing.JMenuItem mnitemReservasPaquete;
     private javax.swing.JMenuItem mnitmCerrarsesion;
     private javax.swing.JMenuItem mnitmSalir;

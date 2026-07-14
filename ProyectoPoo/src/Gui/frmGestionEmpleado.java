@@ -37,8 +37,27 @@ private GestionEmpleado gestionEmpleado;
     tbEmpleados.setModel(modelo);
 
     gestionEmpleado = new GestionEmpleado();
+    cargarDatosDePrueba();
+    listarEmpleados();
+    }
+    private void cargarDatosDePrueba() {
+        // Formato de constructores basados en tus métodos btnAgregar:
+        // (id, nombre, apellido, dni, telefono, correo, sueldo, parametroExtra)
+        
+        Empleado emp1 = new Administrador(101, "Carlos", "Mendoza", 
+                "74859612", "987654321", "carlos@mail.com", 2500.0, "Administración");
+                
+        Empleado emp2 = new AsesorViaje(102, "Ana", "Gomez", 
+                "45123698", "912345678", "ana@mail.com", 1800.0, 0);
+                
+        Empleado emp3 = new Operador(103, "Luis", "Torres", 
+                "12457896", "955667788", "luis@mail.com", 1500.0, "Mañana");
 
-    listarEmpleados();}
+        // Agregamos los objetos a tu clase de control
+        gestionEmpleado.agregarEmpleado(emp1);
+        gestionEmpleado.agregarEmpleado(emp2);
+        gestionEmpleado.agregarEmpleado(emp3);
+    }
     
     void listarEmpleados() {
 
