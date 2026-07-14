@@ -65,27 +65,86 @@ public class frmCupos extends javax.swing.JFrame {
 
     
     private void calcularCupos() {
-        int indice = cboPaquetesCupos.getSelectedIndex();
-        if (indice == -1 || misPaquetes == null || misPaquetes[indice] == null) return;
+    int indice = cboPaquetesCupos.getSelectedIndex();
+    if (indice == -1 || misPaquetes == null || misPaquetes[indice] == null) return;
 
-        PaquetesTuristicos paqueteElegido = misPaquetes[indice];
-        
-        
-        int capacidadTotal = paqueteElegido.getCupoDisponible(); 
+    PaquetesTuristicos paqueteElegido = misPaquetes[indice];
+    String paqueteSeleccionado = cboPaquetesCupos.getSelectedItem().toString();
 
-        int cuposOcupados = 0; 
-        int cuposDisponibles = capacidadTotal - cuposOcupados;
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0); 
 
-        
-        lblCapacidadTotal.setText(capacidadTotal + " Asientos");
-        lblCuposOcupados.setText(cuposOcupados + " Asientos"); 
-        lblCuposDisponibles.setText(cuposDisponibles + " Asientos");
+    int capacidadTotal = paqueteElegido.getCupoDisponible(); 
+    if (capacidadTotal <= 0) capacidadTotal = 20;
 
-        
-        int porcentaje = (capacidadTotal > 0) ? (cuposOcupados * 100) / capacidadTotal : 0;
-        prgCupos.setValue(porcentaje);
-        prgCupos.setStringPainted(true);
+    int cuposOcupados = 0;
+    
+    if (paqueteSeleccionado.contains("CUS01")) { 
+        modelo.addRow(new Object[]{"VOU-001", "71234567", "Juan Pérez Rivera", 2, "987654321"});
+        modelo.addRow(new Object[]{"VOU-004", "44556677", "María Gómez Díaz", 1, "912345678"});
+        modelo.addRow(new Object[]{"VOU-010", "08123456", "Familia Quispe Santillán", 5, "998877665"});
+        modelo.addRow(new Object[]{"VOU-011", "10203040", "Carlos Mendoza Torres", 4, "951753852"});
+        cuposOcupados = 12;
+    } 
+    else if (paqueteSeleccionado.contains("MAN02")) { 
+        modelo.addRow(new Object[]{"VOU-002", "18293045", "Lucía Fernández Ramírez", 3, "923456789"});
+        modelo.addRow(new Object[]{"VOU-006", "09876543", "Ana López Vega", 4, "981234567"});
+        modelo.addRow(new Object[]{"VOU-009", "11223344", "Luis Castro Arce", 2, "978563412"});
+        cuposOcupados = 9;
+    } 
+    else if (paqueteSeleccionado.contains("ARE03")) { 
+        modelo.addRow(new Object[]{"VOU-012", "41238965", "Andrés Beltrán Castro", 2, "963258147"});
+        modelo.addRow(new Object[]{"VOU-016", "09556622", "Roberto Gómez Wong", 3, "941258763"});
+        modelo.addRow(new Object[]{"VOU-022", "76543210", "Elena Rojas Silva", 1, "955443322"});
+        modelo.addRow(new Object[]{"VOU-023", "33221100", "Marco Antonio Solís", 5, "988776655"});
+        cuposOcupados = 11;
     }
+    else if (paqueteSeleccionado.contains("IQU04")) { 
+        modelo.addRow(new Object[]{"VOU-003", "99887766", "Patricia Morales Wong", 2, "911223344"});
+        modelo.addRow(new Object[]{"VOU-005", "88776655", "Diego Alarcón Paz", 4, "922334455"});
+        modelo.addRow(new Object[]{"VOU-014", "55443322", "Sofía Vergara Soto", 2, "933445566"});
+        cuposOcupados = 8;
+    }
+    else if (paqueteSeleccionado.contains("PUN05")) { 
+        modelo.addRow(new Object[]{"VOU-017", "45889922", "Pedro Alcántara Solís", 2, "944556677"});
+        modelo.addRow(new Object[]{"VOU-020", "12348765", "Felipe Mantilla Ruiz", 3, "955667788"});
+        modelo.addRow(new Object[]{"VOU-024", "70112233", "Milagros Vega Luna", 2, "966778899"});
+        cuposOcupados = 7;
+    }
+    else if (paqueteSeleccionado.contains("ICA06")) { 
+        modelo.addRow(new Object[]{"VOU-008", "44556677", "Camila Vega Torres", 2, "977889900"});
+        modelo.addRow(new Object[]{"VOU-015", "08123456", "Familia Quispe Santillán", 6, "988990011"});
+        modelo.addRow(new Object[]{"VOU-025", "10203040", "Carlos Mendoza Torres", 4, "999001122"});
+        cuposOcupados = 12;
+    }
+    else if (paqueteSeleccionado.contains("HUA07")) { 
+        modelo.addRow(new Object[]{"VOU-013", "71234567", "Juan Pérez Rivera", 1, "910203040"});
+        modelo.addRow(new Object[]{"VOU-019", "09876543", "Ana López Vega", 3, "920304050"});
+        modelo.addRow(new Object[]{"VOU-026", "11223344", "Luis Castro Arce", 2, "930405060"});
+        cuposOcupados = 6;
+    }
+    else if (paqueteSeleccionado.contains("TAR08")) { 
+        modelo.addRow(new Object[]{"VOU-018", "41238965", "Andrés Beltrán Castro", 2, "940506070"});
+        modelo.addRow(new Object[]{"VOU-021", "09556622", "Roberto Gómez Wong", 3, "950607080"});
+        modelo.addRow(new Object[]{"VOU-027", "76543210", "Elena Rojas Silva", 4, "960708090"});
+        modelo.addRow(new Object[]{"VOU-028", "88776655", "Diego Alarcón Paz", 5, "970809010"});
+        cuposOcupados = 14;
+    }
+
+    int cuposDisponibles = capacidadTotal - cuposOcupados;
+    if (cuposDisponibles < 0) cuposDisponibles = 0;
+
+    lblCapacidadTotal.setText(capacidadTotal + " Asientos");
+    lblCuposOcupados.setText(cuposOcupados + " Asientos"); 
+    lblCuposDisponibles.setText(cuposDisponibles + " Asientos");
+
+    int porcentaje = (capacidadTotal > 0) ? (int) ((cuposOcupados * 100.0) / capacidadTotal) : 0;
+    if (porcentaje > 100) porcentaje = 100;
+
+    prgCupos.setValue(porcentaje);
+    prgCupos.setString(porcentaje + " %");
+    prgCupos.setStringPainted(true);
+}
 
 
     /**

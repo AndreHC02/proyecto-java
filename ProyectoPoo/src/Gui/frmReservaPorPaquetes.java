@@ -61,35 +61,58 @@ public class frmReservaPorPaquetes extends javax.swing.JFrame {
 
     
     private void mostrarReportePasajeros() {
-        int indice = cboPaquetesReserva.getSelectedIndex();
-        if (indice == -1 || misPaquetes == null || misPaquetes[indice] == null) return;
+    int indice = cboPaquetesReserva.getSelectedIndex();
+    if (indice == -1 || misPaquetes == null || misPaquetes[indice] == null) return;
 
-        PaquetesTuristicos paqueteElegido = misPaquetes[indice];
-        String codigo = paqueteElegido.getIdCodigo();
+    PaquetesTuristicos paqueteElegido = misPaquetes[indice];
+    String codigo = paqueteElegido.getIdCodigo();
 
-        
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0); 
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0); 
 
-        int totalAsientosVendidos = 0;
-        
-        if (codigo.equalsIgnoreCase("CUS01")) { 
-            modelo.addRow(new Object[]{"VOU-001", "71234567", "Juan Pérez Rivera", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
-            modelo.addRow(new Object[]{"VOU-004", "44556677", "María Gómez Díaz", 1, "S/. " + (1 * paqueteElegido.getPrecioPorPersona())});
-            totalAsientosVendidos = 3;
-        } 
-        else if (codigo.equalsIgnoreCase("MAN02")) { 
-            modelo.addRow(new Object[]{"VOU-002", "10203040", "Carlos Mendoza Torres", 4, "S/. " + (4 * paqueteElegido.getPrecioPorPersona())});
-            totalAsientosVendidos = 4;
-        } 
-        else if (codigo.equalsIgnoreCase("IQU03")) { 
-            modelo.addRow(new Object[]{"VOU-003", "09876543", "Ana López Vega", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
-            modelo.addRow(new Object[]{"VOU-005", "11223344", "Luis Castro Arce", 3, "S/. " + (3 * paqueteElegido.getPrecioPorPersona())});
-            totalAsientosVendidos = 5;
-        
+    int totalAsientosVendidos = 0;
+    
+    if (codigo.equalsIgnoreCase("CUS01")) { 
+        modelo.addRow(new Object[]{"VOU-001", "71234567", "Juan Pérez Rivera", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-004", "44556677", "María Gómez Díaz", 1, "S/. " + (1 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-010", "08123456", "Familia Quispe Santillán", 5, "S/. " + (5 * paqueteElegido.getPrecioPorPersona())});
+        totalAsientosVendidos = 8;
+    } 
+    else if (codigo.equalsIgnoreCase("MAN02")) { 
+        modelo.addRow(new Object[]{"VOU-002", "10203040", "Carlos Mendoza Torres", 4, "S/. " + (4 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-006", "18293045", "Lucía Fernández Ramírez", 1, "S/. " + (1 * paqueteElegido.getPrecioPorPersona())});
+        totalAsientosVendidos = 5;
+    } 
+    else if (codigo.equalsIgnoreCase("IQU03") || codigo.equalsIgnoreCase("IQU04")) { 
+        modelo.addRow(new Object[]{"VOU-003", "09876543", "Ana López Vega", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-005", "11223344", "Luis Castro Arce", 3, "S/. " + (3 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-014", "99887766", "Patricia Morales Wong", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        totalAsientosVendidos = 7;
     }
-        lblTotalAsientos.setText(totalAsientosVendidos + " Asientos");
+    else if (codigo.equalsIgnoreCase("ARE03")) { 
+        modelo.addRow(new Object[]{"VOU-012", "41238965", "Andrés Beltrán Castro", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-016", "09556622", "Roberto Gómez Wong", 3, "S/. " + (3 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-022", "76543210", "Elena Rojas Silva", 1, "S/. " + (1 * paqueteElegido.getPrecioPorPersona())});
+        totalAsientosVendidos = 6;
     }
+    else if (codigo.equalsIgnoreCase("PUN05")) { 
+        modelo.addRow(new Object[]{"VOU-017", "88776655", "Diego Alarcón Paz", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-020", "55443322", "Sofía Vergara Soto", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        totalAsientosVendidos = 4;
+    }
+    else if (codigo.equalsIgnoreCase("ICA06")) { 
+        modelo.addRow(new Object[]{"VOU-008", "45889922", "Pedro Alcántara Solís", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-015", "33221100", "Marco Antonio Solís", 4, "S/. " + (4 * paqueteElegido.getPrecioPorPersona())});
+        totalAsientosVendidos = 6;
+    }
+    else if (codigo.equalsIgnoreCase("TAR08")) { 
+        modelo.addRow(new Object[]{"VOU-018", "44556677", "Camila Vega Torres", 2, "S/. " + (2 * paqueteElegido.getPrecioPorPersona())});
+        modelo.addRow(new Object[]{"VOU-021", "12348765", "Felipe Mantilla Ruiz", 3, "S/. " + (3 * paqueteElegido.getPrecioPorPersona())});
+        totalAsientosVendidos = 5;
+    }
+
+    lblTotalAsientos.setText(totalAsientosVendidos + " Asientos");
+}
         
 
     /**

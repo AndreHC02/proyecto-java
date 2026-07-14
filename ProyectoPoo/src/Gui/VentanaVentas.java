@@ -503,7 +503,6 @@ public class VentanaVentas extends javax.swing.JFrame {
         if (paqueteEncontrado != null && clienteEncontrado != null) {
             String codigoReserva = "RES" + (cantidadReservas + 1);
             
-            // 🚀 LA MAGIA ESTÁ AQUÍ: Forzamos el casteo usando el paquete correcto de tu Reserva
             proyectofinalpoo.PaqueteTuristico paqueteCast = (proyectofinalpoo.PaqueteTuristico) (Object) paqueteEncontrado;
             
             Reserva nuevaReserva = new Reserva(codigoReserva, "2026-07-15", paqueteCast, adultos, menores);
