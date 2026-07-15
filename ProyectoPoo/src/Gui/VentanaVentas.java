@@ -28,7 +28,7 @@ public class VentanaVentas extends javax.swing.JFrame {
     Reserva[] reservas = new Reserva[50];
     int cantidadReservas = 0;
     
-    // 🚀 LÍNEAS CORREGIDAS:
+    
     private PaquetesTuristicos[] paquetes; 
     private Voucher[] vouchers;            
     
@@ -48,12 +48,11 @@ public class VentanaVentas extends javax.swing.JFrame {
         this.paquetes = paquetesRecibidos;
         this.vouchers = vouchersRecibidos;
         
-        // Inicializamos los contadores según lo recibido
+        
         if (this.paquetes != null) {
             this.cantidadPaquetes = this.paquetes.length;
         }
         
-        // Configuración de Tablas
         model = new DefaultTableModel();
         model.addColumn("Código Reserva");
         model.addColumn("Monto");
@@ -530,7 +529,7 @@ public class VentanaVentas extends javax.swing.JFrame {
 
     private void RregistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RregistrarClienteActionPerformed
         // TODO add your handling code here
-        // 🚀 CORREGIDO: Ahora lee desde los JTextField (minúsculas) y no de los JLabel
+        
         String dni = Rdni.getText();
         String nombres = Rnombres.getText();
         String apellidos = Rapellidos.getText();

@@ -16,7 +16,7 @@ public class frmReservaPorPaquetes extends javax.swing.JFrame {
 
     
     private PaquetesTuristicos[] misPaquetes;
-    private Voucher[] misVouchers; // 👈 Agrégala si no está
+    private Voucher[] misVouchers; 
 
     
     public frmReservaPorPaquetes(PaquetesTuristicos[] paquetesDelSistema, Voucher[] vouchersDelSistema) {

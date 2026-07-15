@@ -56,7 +56,7 @@ public class frmDestinos extends javax.swing.JFrame {
     }
     void listarDestinos() {
         modelo.setNumRows(0);
-        // Usamos getContador() y getListaDestinos() que están en tu clase Gestión
+        
         for (int i = 0; i < gestionDestino.getContador(); i++) {
             Object[] fila = {
                 gestionDestino.getListaDestinos()[i].getIdDestino(),
@@ -335,13 +335,13 @@ public class frmDestinos extends javax.swing.JFrame {
         String idioma = txtIdioma.getText().trim();
         String imagen = txtImagen.getText().trim();
         
-        // ¡VALIDACIÓN! Si el ID o el Nombre están vacíos, no deja registrar
+        
         if (id.isEmpty() || nombre.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete al menos el ID y el Nombre del destino.");
-            return; // Detiene el método aquí para que no registre
+            return;
         }
         
-        // Instanciamos tu clase de datos con todos los parámetros
+       
         DestinosTuristicos destino = new DestinosTuristicos(id, nombre, pais, ciudad, descripcion, clima, idioma, imagen);
         
         if (gestionDestino.registrarDestino(destino)) {
@@ -440,7 +440,7 @@ if (objDestino != null) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                // Instanciamos correctamente tu clase de gestión
+                
                 Gestion.GestionDestinoTuristico gestion = new Gestion.GestionDestinoTuristico();
                 new frmDestinos(gestion).setVisible(true);
             }

@@ -41,8 +41,7 @@ private GestionEmpleado gestionEmpleado;
     listarEmpleados();
     }
     private void cargarDatosDePrueba() {
-        // Formato de constructores basados en tus métodos btnAgregar:
-        // (id, nombre, apellido, dni, telefono, correo, sueldo, parametroExtra)
+        
         
         Empleado emp1 = new Administrador(101, "Carlos", "Mendoza", 
                 "74859612", "987654321", "carlos@mail.com", 2500.0, "Administración");
