@@ -27,19 +27,36 @@ public class frmDestinos extends javax.swing.JFrame {
         modelo.addColumn("País");
         modelo.addColumn("Ciudad");
         
-        // Asociamos el modelo a tu tabla del diseño
+        
         jTable1.setModel(modelo);
         
-        // Esto evita que se cierre todo el programa si cierras solo esta ventana
+        
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         
         this.gestionDestino = gestionDestino;
+        cargarDestinosPrueba();
         listarDestinos();
     }
+    private void cargarDestinosPrueba() {
+        
+        if (gestionDestino.getContador() == 0) {
+            DestinosTuristicos d1 = new DestinosTuristicos("D001", "Machu Picchu", "Perú", "Cusco", 
+                    "Maravilla del mundo antiguo", "Templado-Subtropical", "Español/Quechua", "machupicchu.jpg");
+                    
+            DestinosTuristicos d2 = new DestinosTuristicos("D002", "Torre Eiffel", "Francia", "París", 
+                    "Monumento icónico de Europa", "Templado", "Francés", "eiffel.jpg");
+                    
+            DestinosTuristicos d3 = new DestinosTuristicos("D003", "Estatua de la Libertad", "EEUU", "Nueva York", 
+                    "Monumento representativo e histórico", "Continental", "Inglés", "libertad.jpg");
 
+            gestionDestino.registrarDestino(d1);
+            gestionDestino.registrarDestino(d2);
+            gestionDestino.registrarDestino(d3);
+        }
+    }
     void listarDestinos() {
         modelo.setNumRows(0);
-        // Usamos getContador() y getListaDestinos() que están en tu clase Gestión
+        
         for (int i = 0; i < gestionDestino.getContador(); i++) {
             Object[] fila = {
                 gestionDestino.getListaDestinos()[i].getIdDestino(),
@@ -280,11 +297,12 @@ public class frmDestinos extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlabelPais)
-                    .addComponent(jlabelIdioma)
-                    .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jlabelIdioma)
+                        .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlabelCiudad)
@@ -317,13 +335,13 @@ public class frmDestinos extends javax.swing.JFrame {
         String idioma = txtIdioma.getText().trim();
         String imagen = txtImagen.getText().trim();
         
-        // ¡VALIDACIÓN! Si el ID o el Nombre están vacíos, no deja registrar
+        
         if (id.isEmpty() || nombre.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete al menos el ID y el Nombre del destino.");
-            return; // Detiene el método aquí para que no registre
+            return;
         }
         
-        // Instanciamos tu clase de datos con todos los parámetros
+       
         DestinosTuristicos destino = new DestinosTuristicos(id, nombre, pais, ciudad, descripcion, clima, idioma, imagen);
         
         if (gestionDestino.registrarDestino(destino)) {
@@ -422,7 +440,7 @@ if (objDestino != null) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                // Instanciamos correctamente tu clase de gestión
+                
                 Gestion.GestionDestinoTuristico gestion = new Gestion.GestionDestinoTuristico();
                 new frmDestinos(gestion).setVisible(true);
             }

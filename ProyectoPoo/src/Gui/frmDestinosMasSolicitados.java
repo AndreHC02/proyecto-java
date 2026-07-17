@@ -56,47 +56,73 @@ public class frmDestinosMasSolicitados extends javax.swing.JFrame {
 
     
     private void mostrarRankingDestinos() {
-        int indice = cboCategoriasReporte.getSelectedIndex();
-        if (indice == -1) return;
+    int indice = cboCategoriasReporte.getSelectedIndex();
+    if (indice == -1) return;
 
-        String categoriaSeleccionada = cboCategoriasReporte.getSelectedItem().toString();
+    String categoriaSeleccionada = cboCategoriasReporte.getSelectedItem().toString();
 
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTableRanking.getModel();
+    modelo.setRowCount(0);
+
+    String destinoTop = "Ninguno";
+
+    if (categoriaSeleccionada.contains("Cultural")) {
+        String nombreCusco = obtenerNombrePaqueteReal("CUS01", "Cusco Mágico e Imperial");
+        String nombreArequipa = obtenerNombrePaqueteReal("ARE03", "Arequipa Cultural y Colca");
+        String nombreAyacucho = obtenerNombrePaqueteReal("AYA05", "Ayacucho Histórico y Colonial");
+        String nombreTrujillo = obtenerNombrePaqueteReal("TRU07", "Trujillo Ruta Moche y Chan Chan");
+        String nombreChachapoyas = obtenerNombrePaqueteReal("CHA10", "Chachapoyas y Fortaleza de Kuélap");
+        String nombreCajamarca = obtenerNombrePaqueteReal("CAJ11", "Cajamarca Colonial y Baños del Inca");
+        String nombrePuno = obtenerNombrePaqueteReal("PUN12", "Puno Místico y Torres de Sillustani");
         
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTableRanking.getModel();
-        modelo.setRowCount(0);
-
-        String destinoTop = "Ninguno";
-
+        modelo.addRow(new Object[]{"# 1", "CUS01", nombreCusco, "45 Reservas"});
+        modelo.addRow(new Object[]{"# 2", "ARE03", nombreArequipa, "28 Reservas"});
+        modelo.addRow(new Object[]{"# 3", "AYA05", nombreAyacucho, "22 Reservas"});
+        modelo.addRow(new Object[]{"# 4", "TRU07", nombreTrujillo, "19 Reservas"});
+        modelo.addRow(new Object[]{"# 5", "CHA10", nombreChachapoyas, "16 Reservas"});
+        modelo.addRow(new Object[]{"# 6", "CAJ11", nombreCajamarca, "14 Reservas"});
+        modelo.addRow(new Object[]{"# 7", "PUN12", nombrePuno, "11 Reservas"});
+        destinoTop = nombreCusco;
+    } 
+    else if (categoriaSeleccionada.contains("Relax")) {
+        String nombreMancora = obtenerNombrePaqueteReal("MAN02", "Relax en Playas de Máncora");
+        String nombrePuntaSal = obtenerNombrePaqueteReal("PUN01", "Punta Sal VIP Resort");
+        String nombreZorritos = obtenerNombrePaqueteReal("ZOR03", "Zorritos Playa y Sol del Norte");
+        String nombreParacas = obtenerNombrePaqueteReal("PAR04", "Paracas y Bahía Relax");
+        String nombreColan = obtenerNombrePaqueteReal("COL05", "Playa Colán y Sunset Piurano");
+        String nombreHuanchaco = obtenerNombrePaqueteReal("HUA06", "Huanchaco Surf y Brisa Marina");
+        String nombreMejia = obtenerNombrePaqueteReal("MEJ07", "Mejía Verano y Playas del Sur");
         
+        modelo.addRow(new Object[]{"# 1", "MAN02", nombreMancora, "62 Reservas"});
+        modelo.addRow(new Object[]{"# 2", "PUN01", nombrePuntaSal, "41 Reservas"});
+        modelo.addRow(new Object[]{"# 3", "ZOR03", nombreZorritos, "35 Reservas"});
+        modelo.addRow(new Object[]{"# 4", "PAR04", nombreParacas, "29 Reservas"});
+        modelo.addRow(new Object[]{"# 5", "COL05", nombreColan, "22 Reservas"});
+        modelo.addRow(new Object[]{"# 6", "HUA06", nombreHuanchaco, "18 Reservas"});
+        modelo.addRow(new Object[]{"# 7", "MEJ07", nombreMejia, "12 Reservas"});
+        destinoTop = nombreMancora;
+    } 
+    else if (categoriaSeleccionada.contains("Aventura")) {
+        String nombreIquitos = obtenerNombrePaqueteReal("IQU03", "Aventura en la Selva de Iquitos");
+        String nombreTarapoto = obtenerNombrePaqueteReal("TAR08", "Tarapoto Extremo y Cataratas");
+        String nombreHuaraz = obtenerNombrePaqueteReal("HUA09", "Trekking Nevado Pastoruri Huaraz");
+        String nombreIca = obtenerNombrePaqueteReal("ICA06", "Tubulares y Sandboard en Ica");
+        String nombreLunahuana = obtenerNombrePaqueteReal("LUN10", "Rafting Extremo en Lunahuaná");
+        String nombreCaminoInca = obtenerNombrePaqueteReal("CAM11", "Camino Inca a Machupicchu 4D/3N");
+        String nombreMarcahuasi = obtenerNombrePaqueteReal("MAR12", "Acampada Mística en Marcahuasi");
         
-        if (categoriaSeleccionada.equals("Cultural")) {
-            
-            String nombreCusco = obtenerNombrePaqueteReal("CUS01", "Cusco Mágico e Imperial");
-            
-            modelo.addRow(new Object[]{"# 1", "CUS01", nombreCusco, 45 + " Reservas"});
-            modelo.addRow(new Object[]{"# 2", "ARE01", "Arequipa Cultural y Colca", 28 + " Reservas"});
-            destinoTop = nombreCusco;
-        } 
-        else if (categoriaSeleccionada.equals("Relax")) {
-            
-            String nombreMancora = obtenerNombrePaqueteReal("MAN02", "Relax en Playas de Máncora");
-            
-            modelo.addRow(new Object[]{"# 1", "MAN02", nombreMancora, 62 + " Reservas"});
-            modelo.addRow(new Object[]{"# 2", "PUN01", "Punta Sal VIP", 19 + " Reservas"});
-            destinoTop = nombreMancora;
-        } 
-        else if (categoriaSeleccionada.equals("Aventura")) {
-            
-            String nombreIquitos = obtenerNombrePaqueteReal("SEL03", "Aventura en la Selva de Iquitos");
-            
-            modelo.addRow(new Object[]{"# 1", "SEL03", nombreIquitos, 37 + " Reservas"});
-            modelo.addRow(new Object[]{"# 2", "TAR01", "Tarapoto y Laguna Azul", 22 + " Reservas"});
-            destinoTop = nombreIquitos;
-        }
-
-        
-        lblDestinoTop.setText("Destino Top #1 actual: " + destinoTop);
+        modelo.addRow(new Object[]{"# 1", "IQU03", nombreIquitos, "51 Reservas"});
+        modelo.addRow(new Object[]{"# 2", "TAR08", nombreTarapoto, "44 Reservas"});
+        modelo.addRow(new Object[]{"# 3", "HUA09", nombreHuaraz, "38 Reservas"});
+        modelo.addRow(new Object[]{"# 4", "ICA06", nombreIca, "33 Reservas"});
+        modelo.addRow(new Object[]{"# 5", "LUN10", nombreLunahuana, "27 Reservas"});
+        modelo.addRow(new Object[]{"# 6", "CAM11", nombreCaminoInca, "25 Reservas"});
+        modelo.addRow(new Object[]{"# 7", "MAR12", nombreMarcahuasi, "15 Reservas"});
+        destinoTop = nombreIquitos;
     }
+
+    lblDestinoTop.setText("Destino Top #1 actual : " + destinoTop);
+}
     
     private String obtenerNombrePaqueteReal(String codigo, String nombrePorDefecto) {
         if (this.misPaquetes != null) {
@@ -122,7 +148,6 @@ public class frmDestinosMasSolicitados extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRanking = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         btnCerrarPaquetesReporte = new javax.swing.JButton();
         lblDestinoTop = new javax.swing.JLabel();
@@ -153,9 +178,6 @@ public class frmDestinosMasSolicitados extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableRanking);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Destino Top #1 actual : ");
-
         btnCerrarPaquetesReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
         btnCerrarPaquetesReporte.setText("Cerrar");
         btnCerrarPaquetesReporte.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +187,7 @@ public class frmDestinosMasSolicitados extends javax.swing.JFrame {
         });
 
         lblDestinoTop.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblDestinoTop.setText("jLabel3");
+        lblDestinoTop.setText("Destinos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,20 +201,19 @@ public class frmDestinosMasSolicitados extends javax.swing.JFrame {
                         .addGap(55, 55, 55)
                         .addComponent(cboCategoriasReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel2)
-                        .addGap(37, 37, 37)
-                        .addComponent(lblDestinoTop))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator2))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lblDestinoTop))
+                            .addComponent(jSeparator2))))
                 .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -212,11 +233,9 @@ public class frmDestinosMasSolicitados extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblDestinoTop))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDestinoTop)
+                .addGap(12, 12, 12)
                 .addComponent(btnCerrarPaquetesReporte)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -273,7 +292,6 @@ public class frmDestinosMasSolicitados extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrarPaquetesReporte;
     private javax.swing.JComboBox<String> cboCategoriasReporte;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

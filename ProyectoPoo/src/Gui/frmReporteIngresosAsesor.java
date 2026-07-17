@@ -47,56 +47,94 @@ public class frmReporteIngresosAsesor extends javax.swing.JFrame {
     }
     
     private void cargarAsesoresEnCombo() {
-        javax.swing.DefaultComboBoxModel<String> modeloCombo = new javax.swing.DefaultComboBoxModel<>();
-        modeloCombo.addElement("ASE-01 - Carlos Mendoza");
-        modeloCombo.addElement("ASE-02 - Ana López");
-        modeloCombo.addElement("ASE-03 - Luis Castro");
-        cboAsesores.setModel(modeloCombo);
-    }
+    javax.swing.DefaultComboBoxModel<String> modeloCombo = new javax.swing.DefaultComboBoxModel<>();
+    modeloCombo.addElement("ASE-01 - Carlos Mendoza");
+    modeloCombo.addElement("ASE-02 - Ana López");
+    modeloCombo.addElement("ASE-03 - Luis Castro");
+    // Nuevos asesores para la demostración:
+    modeloCombo.addElement("ASE-04 - Sofía Paredes");
+    modeloCombo.addElement("ASE-05 - Jorge Salazar");
+    modeloCombo.addElement("ASE-06 - Elena Rojas");
+    cboAsesores.setModel(modeloCombo);
+}
 
     
     private void mostrarIngresosAsesor() {
-        int indice = cboAsesores.getSelectedIndex();
-        if (indice == -1) return;
+    int indice = cboAsesores.getSelectedIndex();
+    if (indice == -1) return;
 
-        String asesorSeleccionado = cboAsesores.getSelectedItem().toString();
+    String asesorSeleccionado = cboAsesores.getSelectedItem().toString();
 
-        // Obtenemos el modelo de tu JTable
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTableAsesores.getModel();
-        modelo.setRowCount(0);
+    
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTableAsesores.getModel();
+    modelo.setRowCount(0); 
 
-        double montoTotalRecaudado = 0;
+    double montoTotalRecaudado = 0;
 
+    
+    double precioBaseCusco = obtenerPrecioPaqueteReal("CUS01", 1200.0);
+    double precioBaseMancora = obtenerPrecioPaqueteReal("MAN02", 850.0);
+    double precioBaseArequipa = obtenerPrecioPaqueteReal("ARE03", 950.0);
+    double precioBaseIquitos = obtenerPrecioPaqueteReal("IQU04", 1350.0);
+    double precioBasePuno = obtenerPrecioPaqueteReal("PUN05", 780.0);
+    double precioBaseIca = obtenerPrecioPaqueteReal("ICA06", 450.0);
+    double precioBaseTarapoto = obtenerPrecioPaqueteReal("TAR08", 690.0);
+
+    if (asesorSeleccionado.contains("Carlos Mendoza")) {
+        double venta1 = 2 * precioBaseCusco;
+        double venta2 = 1 * precioBaseMancora;
         
-        double precioBaseCusco = obtenerPrecioPaqueteReal("CUS01", 1200.0);
-        double precioBaseMancora = obtenerPrecioPaqueteReal("MAN02", 850.0);
-
+        modelo.addRow(new Object[]{"12/07/2026", "VOU-001", "Cusco Mágico (2 Pax)", "S/. " + venta1});
+        modelo.addRow(new Object[]{"13/07/2026", "VOU-006", "Máncora Express (1 Pax)", "S/. " + venta2});
+        montoTotalRecaudado = venta1 + venta2;
+    } 
+    else if (asesorSeleccionado.contains("Ana López")) {
+        double venta1 = 4 * precioBaseMancora;
+        double venta2 = 2 * precioBaseIca;
         
-        if (asesorSeleccionado.contains("Carlos Mendoza")) {
-            double venta1 = 2 * precioBaseCusco;
-            double venta2 = 1 * precioBaseMancora;
-            
-            modelo.addRow(new Object[]{"12/07/2026", "VOU-001", "Cusco Mágico (2 Pax)", "S/. " + venta1});
-            modelo.addRow(new Object[]{"13/07/2026", "VOU-006", "Máncora Express (1 Pax)", "S/. " + venta2});
-            montoTotalRecaudado = venta1 + venta2;
-        } 
-        else if (asesorSeleccionado.contains("Ana López")) {
-            double venta1 = 4 * precioBaseMancora;
-            
-            modelo.addRow(new Object[]{"10/07/2026", "VOU-002", "Máncora Playero (4 Pax)", "S/. " + venta1});
-            montoTotalRecaudado = venta1;
-        } 
-        else if (asesorSeleccionado.contains("Luis Castro")) {
-            double precioBaseIquitos = obtenerPrecioPaqueteReal("IQU03", 950.0);
-            double venta1 = 3 * precioBaseIquitos;
-            
-            modelo.addRow(new Object[]{"11/07/2026", "VOU-005", "Iquitos Aventura (3 Pax)", "S/. " + venta1});
-            montoTotalRecaudado = venta1;
-        }
-
-       
-        lblMontoTotalAsesor.setText("MONTO TOTAL RECAUDADO POR ESTE ASESOR: S/. " + montoTotalRecaudado);
+        modelo.addRow(new Object[]{"10/07/2026", "VOU-002", "Máncora Playero (4 Pax)", "S/. " + venta1});
+        modelo.addRow(new Object[]{"14/07/2026", "VOU-008", "Dunas en Ica (2 Pax)", "S/. " + venta2});
+        montoTotalRecaudado = venta1 + venta2;
+    } 
+    else if (asesorSeleccionado.contains("Luis Castro")) {
+        double venta1 = 3 * precioBaseIquitos;
+        
+        modelo.addRow(new Object[]{"11/07/2026", "VOU-005", "Iquitos Aventura (3 Pax)", "S/. " + venta1});
+        montoTotalRecaudado = venta1;
     }
+    
+    else if (asesorSeleccionado.contains("Sofía Paredes")) {
+        
+        double venta1 = 5 * precioBaseCusco;
+        double venta2 = 2 * precioBaseArequipa;
+        double venta3 = 4 * precioBaseIca;
+
+        modelo.addRow(new Object[]{"05/07/2026", "VOU-010", "Cusco Imperial - Familia (5 Pax)", "S/. " + venta1});
+        modelo.addRow(new Object[]{"09/07/2026", "VOU-012", "Colca Arequipa (2 Pax)", "S/. " + venta2});
+        modelo.addRow(new Object[]{"13/07/2026", "VOU-015", "Paracas e Ica (4 Pax)", "S/. " + venta3});
+        montoTotalRecaudado = venta1 + venta2 + venta3;
+    }
+    else if (asesorSeleccionado.contains("Jorge Salazar")) {
+        
+        double venta1 = 2 * precioBaseTarapoto;
+        double venta2 = 2 * precioBasePuno;
+
+        modelo.addRow(new Object[]{"08/07/2026", "VOU-018", "Verde Tarapoto (2 Pax)", "S/. " + venta1});
+        modelo.addRow(new Object[]{"12/07/2026", "VOU-020", "Lago Titicaca Puno (2 Pax)", "S/. " + venta2});
+        montoTotalRecaudado = venta1 + venta2;
+    }
+    else if (asesorSeleccionado.contains("Elena Rojas")) {
+        
+        double venta1 = 1 * precioBaseArequipa;
+
+        modelo.addRow(new Object[]{"14/07/2026", "VOU-022", "Arequipa Flash (1 Pax)", "S/. " + venta1});
+        montoTotalRecaudado = venta1;
+    }
+
+    
+    String totalFormateado = String.format("%.2f", montoTotalRecaudado);
+    lblMontoTotalAsesor.setText("MONTO TOTAL RECAUDADO POR ESTE ASESOR: S/. " + totalFormateado);
+}
 
     
     private double obtenerPrecioPaqueteReal(String codigo, double precioPorDefecto) {

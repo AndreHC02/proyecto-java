@@ -2,9 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package proyectofinalpoo;
+package Gui;
 
+import Clases.PaquetesTuristicos;
 import javax.swing.table.DefaultTableModel;
+import proyectofinalpoo.Cliente;
+import proyectofinalpoo.Fidelizacion;
+import proyectofinalpoo.Pago;
+import proyectofinalpoo.Promocion;
+import proyectofinalpoo.Reserva;
+import proyectofinalpoo.Voucher;
 
 /**
  *
@@ -21,7 +28,10 @@ public class VentanaVentas extends javax.swing.JFrame {
     Reserva[] reservas = new Reserva[50];
     int cantidadReservas = 0;
     
-    PaqueteTuristico[] paquetes = new PaqueteTuristico[50];
+    
+    private PaquetesTuristicos[] paquetes; 
+    private Voucher[] vouchers;            
+    
     int cantidadPaquetes = 0;
     
     Cliente[] clientes = new Cliente[50];
@@ -33,24 +43,29 @@ public class VentanaVentas extends javax.swing.JFrame {
 
 
 
-    public VentanaVentas() {
+   public VentanaVentas(PaquetesTuristicos[] paquetesRecibidos, Voucher[] vouchersRecibidos) {
         initComponents();
+        this.paquetes = paquetesRecibidos;
+        this.vouchers = vouchersRecibidos;
+        
+        
+        if (this.paquetes != null) {
+            this.cantidadPaquetes = this.paquetes.length;
+        }
+        
         model = new DefaultTableModel();
         model.addColumn("Código Reserva");
         model.addColumn("Monto");
         model.addColumn("Método de Pago");
         this.jTPagos.setModel(model);
         
-         modelClientes = new DefaultTableModel();
-         modelClientes.addColumn("DNI");
-         modelClientes.addColumn("Nombres");
-         modelClientes.addColumn("Apellidos");
-         modelClientes.addColumn("Teléfono");
-         modelClientes.addColumn("Correo");
-         this.NTablaClientes.setModel(modelClientes);
-
-        paquetes[0] = new PaqueteTuristico("PKT001", "Cusco Mágico", 500.0, 10);
-       cantidadPaquetes = 1;
+        modelClientes = new DefaultTableModel();
+        modelClientes.addColumn("DNI");
+        modelClientes.addColumn("Nombres");
+        modelClientes.addColumn("Apellidos");
+        modelClientes.addColumn("Teléfono");
+        modelClientes.addColumn("Correo");
+        this.NTablaClientes.setModel(modelClientes);
     }
     
 
@@ -168,7 +183,7 @@ public class VentanaVentas extends javax.swing.JFrame {
                     .addGroup(RegistroClientesLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(RClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         RegistroClientesLayout.setVerticalGroup(
             RegistroClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,10 +260,9 @@ public class VentanaVentas extends javax.swing.JFrame {
                         .addGroup(NumeroReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(NCodigo, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(NNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, NumeroReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(NMenores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                .addComponent(NAdultos, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addContainerGap(86, Short.MAX_VALUE))
+                            .addComponent(NMenores, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NAdultos, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         NumeroReservasLayout.setVerticalGroup(
             NumeroReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +355,7 @@ public class VentanaVentas extends javax.swing.JFrame {
                         .addGroup(GestionPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JRegistrarPago)
                             .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         GestionPagosLayout.setVerticalGroup(
             GestionPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,10 +386,7 @@ public class VentanaVentas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,44 +465,62 @@ public class VentanaVentas extends javax.swing.JFrame {
 
     private void NCrearReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NCrearReservaActionPerformed
         // TODO add your handling code here:
-         String codigoPaquete = NCodigoPaquete.getText();
-    int adultos = Integer.parseInt(NAdultos.getText());
-    int menores = Integer.parseInt(NMenores.getText());
-    String nombreCliente = NNombreCliente.getText();
-
-    PaqueteTuristico paqueteEncontrado = null;
-    for (int i = 0; i < cantidadPaquetes; i++) {
-        if (paquetes[i].getCodigo().equals(codigoPaquete)) {
-            paqueteEncontrado = paquetes[i];
+        String codigoPaquete = NCodigo.getText(); 
+        int adultos = 0;
+        int menores = 0;
+        
+        try {
+            adultos = Integer.parseInt(NAdultos.getText());
+            menores = Integer.parseInt(NMenores.getText());
+        } catch (NumberFormatException e) {
+            NAreaVoucher.setText("Error: Ingrese números válidos en adultos y menores.");
+            return;
         }
-    }
+        
+        String nombreCliente = NNombreCliente.getText();
 
-    Cliente clienteEncontrado = null;
-    for (int i = 0; i < cantidadClientes; i++) {
-        if (clientes[i].getNombres().equals(nombreCliente)) {
-            clienteEncontrado = clientes[i];
+        Clases.PaquetesTuristicos paqueteEncontrado = null; 
+        if (paquetes != null) {
+            for (int i = 0; i < cantidadPaquetes; i++) {
+                if (paquetes[i] != null && paquetes[i].getIdCodigo().equals(codigoPaquete)) {
+                    paqueteEncontrado = paquetes[i];
+                    break;
+                }
+            }
         }
-    }
 
-    if (paqueteEncontrado != null && clienteEncontrado != null) {
-        String codigoReserva = "RES" + (cantidadReservas + 1);
-        Reserva nuevaReserva = new Reserva(codigoReserva, "2026-07-15", paqueteEncontrado, adultos, menores);
-        nuevaReserva.agregarCliente(clienteEncontrado);
+        Cliente clienteEncontrado = null;
+        if (clientes != null) {
+            for (int i = 0; i < cantidadClientes; i++) {
+                if (clientes[i] != null && clientes[i].getNombres().equalsIgnoreCase(nombreCliente)) {
+                    clienteEncontrado = clientes[i];
+                    break;
+                }
+            }
+        }
 
-        double total = nuevaReserva.calcularTotal();
-        reservas[cantidadReservas] = nuevaReserva;
-        cantidadReservas++;
+        if (paqueteEncontrado != null && clienteEncontrado != null) {
+            String codigoReserva = "RES" + (cantidadReservas + 1);
+            
+            proyectofinalpoo.PaqueteTuristico paqueteCast = (proyectofinalpoo.PaqueteTuristico) (Object) paqueteEncontrado;
+            
+            Reserva nuevaReserva = new Reserva(codigoReserva, "2026-07-15", paqueteCast, adultos, menores);
+            nuevaReserva.agregarCliente(clienteEncontrado);
 
-        NAreaVoucher.setText("Reserva creada: " + codigoReserva + "\nPrecio total: S/ " + total);
-        NCodigoPaquete.setText(null);
-        NAdultos.setText(null);
-        NMenores.setText(null);
-        NNombreCliente.setText(null);
-    } else if (paqueteEncontrado == null) {
-        NAreaVoucher.setText("Paquete no encontrado");
-    } else {
-        NAreaVoucher.setText("Cliente no encontrado. Regístralo primero en la pestaña Registro de Clientes.");
-    }
+            double total = nuevaReserva.calcularTotal();
+            reservas[cantidadReservas] = nuevaReserva;
+            cantidadReservas++;
+
+            NAreaVoucher.setText("Reserva creada: " + codigoReserva + "\nPrecio total: S/ " + total);
+            NCodigo.setText(null);
+            NAdultos.setText(null);
+            NMenores.setText(null);
+            NNombreCliente.setText(null);
+        } else if (paqueteEncontrado == null) {
+            NAreaVoucher.setText("Paquete no encontrado con el código: " + codigoPaquete);
+        } else {
+            NAreaVoucher.setText("Cliente no encontrado. Regístralo primero en la pestaña Registro de Clientes.");
+        }
     }//GEN-LAST:event_NCrearReservaActionPerformed
 
     private void RdniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RdniActionPerformed
@@ -500,32 +529,38 @@ public class VentanaVentas extends javax.swing.JFrame {
 
     private void RregistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RregistrarClienteActionPerformed
         // TODO add your handling code here
-        String dni = RDni.getText();
-        String nombres = RNombres.getText();
-        String apellidos = RApellidos.getText();
-        String telefono = RTelefono.getText();
-        String correo = RCorreo.getText();
+        
+        String dni = Rdni.getText();
+        String nombres = Rnombres.getText();
+        String apellidos = Rapellidos.getText();
+        String telefono = Rtelefono.getText();
+        String correo = Rcorreo.getText();
 
-    Cliente nuevoCliente = new Cliente(nombres, apellidos);
+        if (nombres.isEmpty() || apellidos.isEmpty()) {
+            return;
+        }
 
-    if (cantidadClientes < clientes.length) {
-        clientes[cantidadClientes] = nuevoCliente;
-        cantidadClientes++;
+        Cliente nuevoCliente = new Cliente(nombres, apellidos);
 
-        String[] datos = new String[5];
-        datos[0] = dni;
-        datos[1] = nombres;
-        datos[2] = apellidos;
-        datos[3] = telefono;
-        datos[4] = correo;
-        modelClientes.addRow(datos);
+        if (cantidadClientes < clientes.length) {
+            clientes[cantidadClientes] = nuevoCliente;
+            cantidadClientes++;
 
-        RDni.setText(null);
-        RNombres.setText(null);
-        RApellidos.setText(null);
-        RTelefono.setText(null);
-        RCorreo.setText(null);
-    }
+            String[] datos = new String[5];
+            datos[0] = dni;
+            datos[1] = nombres;
+            datos[2] = apellidos;
+            datos[3] = telefono;
+            datos[4] = correo;
+            modelClientes.addRow(datos);
+
+            Rdni.setText(null);
+            Rnombres.setText(null);
+            Rapellidos.setText(null);
+            Rtelefono.setText(null);
+            Rcorreo.setText(null);
+        }
+    
     }//GEN-LAST:event_RregistrarClienteActionPerformed
 
     private void NNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NNombreClienteActionPerformed
@@ -554,8 +589,7 @@ public class VentanaVentas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaVentas().setVisible(true));
-    }
+java.awt.EventQueue.invokeLater(() -> new VentanaVentas(null, null).setVisible(true));    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CodigoReserva;

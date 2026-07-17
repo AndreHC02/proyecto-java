@@ -147,7 +147,7 @@ public class frmLogin extends javax.swing.JFrame {
         final javax.swing.JDialog alertaBienvenida = new javax.swing.JDialog(this, "Bienvenido", true);
         alertaBienvenida.setUndecorated(true);
 
-        // 2. Diseñamos el letrero estético en HTML usando los datos del usuario logueado
+      
         javax.swing.JLabel txtMensaje = new javax.swing.JLabel(
             "<html><center><font size='5' color='#0f2a4a'><b>Legacy Travel</b></font><br>"
             + "<font size='4' color='#555555'>¡Acceso concedido!<br>Bienvenido al sistema, <b>" 

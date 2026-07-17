@@ -42,37 +42,61 @@ public class frmReporteDeudas extends javax.swing.JFrame {
 
     
     private void mostrarClientesConDeuda(boolean soloMayoresA100) {
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTableDeudas.getModel();
-        modelo.setRowCount(0); // Limpiar filas anteriores
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTableDeudas.getModel();
+    modelo.setRowCount(0);
 
-        double totalDineroPendienteCobro = 0;
+    double totalDineroPendienteCobro = 0;
 
-        
-        
-        double total1 = 2400.0, pagado1 = 2000.0, deuda1 = total1 - pagado1;
-        if (!soloMayoresA100 || deuda1 > 100.0) {
-            modelo.addRow(new Object[]{"45889922", "Pedro Alcántara Solís", "987654321", "S/. " + total1, "S/. " + pagado1, "S/. " + deuda1});
-            totalDineroPendienteCobro += deuda1;
-        }
-
-        
-        double total2 = 850.0, pagado2 = 800.0, deuda2 = total2 - pagado2; 
-        if (!soloMayoresA100 || deuda2 > 100.0) {
-            modelo.addRow(new Object[]{"70112233", "Milagros Vega Luna", "941258763", "S/. " + total2, "S/. " + pagado2, "S/. " + deuda2});
-            totalDineroPendienteCobro += deuda2;
-        }
-
-        
-        double total3 = 1900.0, pagado3 = 1200.0, deuda3 = total3 - pagado3; 
-        if (!soloMayoresA100 || deuda3 > 100.0) {
-            modelo.addRow(new Object[]{"09556622", "Roberto Gómez Wong", "963258147", "S/. " + total3, "S/. " + pagado3, "S/. " + deuda3});
-            totalDineroPendienteCobro += deuda3;
-        }
-
-       
-        lblTotalPendiente.setText("Total Dinero Pendiente de Cobro en el Sistema: S/. " + totalDineroPendienteCobro);
+    double total1 = 2400.0, pagado1 = 2000.0, deuda1 = total1 - pagado1;
+    if (!soloMayoresA100 || deuda1 > 100.0) {
+        modelo.addRow(new Object[]{"45889922", "Pedro Alcántara Solís", "987654321", "S/. " + total1, "S/. " + pagado1, "S/. " + deuda1});
+        totalDineroPendienteCobro += deuda1;
     }
 
+    double total2 = 850.0, pagado2 = 800.0, deuda2 = total2 - pagado2; 
+    if (!soloMayoresA100 || deuda2 > 100.0) {
+        modelo.addRow(new Object[]{"70112233", "Milagros Vega Luna", "941258763", "S/. " + total2, "S/. " + pagado2, "S/. " + deuda2});
+        totalDineroPendienteCobro += deuda2;
+    }
+
+    double total3 = 1900.0, pagado3 = 1200.0, deuda3 = total3 - pagado3; 
+    if (!soloMayoresA100 || deuda3 > 100.0) {
+        modelo.addRow(new Object[]{"09556622", "Roberto Gómez Wong", "963258147", "S/. " + total3, "S/. " + pagado3, "S/. " + deuda3});
+        totalDineroPendienteCobro += deuda3;
+    }
+
+    double total4 = 3400.0, pagado4 = 2000.0, deuda4 = total4 - pagado4; 
+    if (!soloMayoresA100 || deuda4 > 100.0) {
+        modelo.addRow(new Object[]{"18293045", "Lucía Fernández Ramírez", "951753852", "S/. " + total4, "S/. " + pagado4, "S/. " + deuda4});
+        totalDineroPendienteCobro += deuda4;
+    }
+
+    double total5 = 450.0, pagado5 = 400.0, deuda5 = total5 - pagado5; 
+    if (!soloMayoresA100 || deuda5 > 100.0) {
+        modelo.addRow(new Object[]{"72345678", "Carlos Mendoza López", "923456789", "S/. " + total5, "S/. " + pagado5, "S/. " + deuda5});
+        totalDineroPendienteCobro += deuda5;
+    }
+
+    double total6 = 6000.0, pagado6 = 4000.0, deuda6 = total6 - pagado6; 
+    if (!soloMayoresA100 || deuda6 > 100.0) {
+        modelo.addRow(new Object[]{"08123456", "Familia Quispe Santillán", "981234567", "S/. " + total6, "S/. " + pagado6, "S/. " + deuda6});
+        totalDineroPendienteCobro += deuda6;
+    }
+
+    double total7 = 1380.0, pagado7 = 1300.0, deuda7 = total7 - pagado7; 
+    if (!soloMayoresA100 || deuda7 > 100.0) {
+        modelo.addRow(new Object[]{"41238965", "Andrés Beltrán Castro", "978563412", "S/. " + total7, "S/. " + pagado7, "S/. " + deuda7});
+        totalDineroPendienteCobro += deuda7;
+    }
+
+    double total8 = 2700.0, pagado8 = 1500.0, deuda8 = total8 - pagado8; 
+    if (!soloMayoresA100 || deuda8 > 100.0) {
+        modelo.addRow(new Object[]{"44556677", "Camila Vega Torres", "998877665", "S/. " + total8, "S/. " + pagado8, "S/. " + deuda8});
+        totalDineroPendienteCobro += deuda8;
+    }
+
+    lblTotalPendiente.setText("Total Dinero Pendiente de Cobro en el Sistema: S/. " + totalDineroPendienteCobro);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
