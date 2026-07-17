@@ -62,7 +62,8 @@ public class frmReservaPorPaquetes extends javax.swing.JFrame {
     
     private void mostrarReportePasajeros() {
     int indice = cboPaquetesReserva.getSelectedIndex();
-    if (indice == -1 || misPaquetes == null || misPaquetes[indice] == null) return;
+    if (indice == -1 || misPaquetes == null || misPaquetes[indice] == null) 
+        return;
 
     PaquetesTuristicos paqueteElegido = misPaquetes[indice];
     String codigo = paqueteElegido.getIdCodigo();

@@ -18,8 +18,6 @@ import proyectofinalpoo.Voucher;
 public class frmPrincipal extends javax.swing.JFrame {
     
     private String rolUsuario;
-    
-    
     private PaquetesTuristicos[] misPaquetes;
     
     private Voucher[] misVouchers = new Voucher[100];
